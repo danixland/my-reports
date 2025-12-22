@@ -1,0 +1,239 @@
+{
+    "metadata": {
+        "name": "catpuccin mocha",
+        "author": "danix <danix@danix.xyz>",
+        "license": "Unlicense",
+        "revision": 1
+    },
+    "Comment": "https://catppuccin.com/palette/ Mocha",
+    "Reference": "https://github.com/tajmone/pandoc-goodies/tree/master/skylighting/themes",
+    "Base colors": "tc = Text, bg = Surface 1, ln = Lavender",
+    "text-color": "#cdd6f4",
+    "background-color": "#45475a",
+    "text-styles": {
+        "Alert": {
+            "Comment": "Red",
+            "text-color": "#f38ba8",
+            "background-color": null,
+            "bold": true,
+            "italic": false,
+            "underline": false
+        },
+        "Annotation": {
+            "Comment": "Blue",
+            "text-color": "#89b4fa",
+            "background-color": null,
+            "bold": true,
+            "italic": true,
+            "underline": false
+        },
+        "Attribute": {
+            "Comment": "Blue",
+            "text-color": "#89b4fa",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "BaseN": {
+            "Comment": "Sapphire",
+            "text-color": "#74c7ec",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "BuiltIn": {
+            "Comment": "Peach",
+            "text-color": "#fab387",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Char": {
+            "Comment": "Lavender",
+            "text-color": "#b4befe",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Comment": {
+            "Comment": "Subtext 1",
+            "text-color": "#bac2de",
+            "background-color": null,
+            "bold": false,
+            "italic": true,
+            "underline": false
+        },
+        "CommentVar": {
+            "Comment": "Subtext 1",
+            "text-color": "#bac2de",
+            "background-color": null,
+            "bold": true,
+            "italic": true,
+            "underline": false
+        },
+        "Constant": {
+            "Comment": "Yellow",
+            "text-color": "#f9e2af",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "ControlFlow": {
+            "Comment": "Mauve",
+            "text-color": "#cba6f7",
+            "background-color": null,
+            "bold": true,
+            "italic": false,
+            "underline": false
+        },
+        "DataType": {
+            "Comment": "Lavender",
+            "text-color": "#b4befe",
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "DecVal": {
+            "Comment": "Teal",
+            "text-color": "#94e2d5",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Documentation": {
+            "text-color": "#ba2121",
+            "background-color": null,
+            "bold": false,
+            "italic": true,
+            "underline": false
+        },
+        "Error": {
+            "text-color": "#ff0000",
+            "background-color": null,
+            "bold": true,
+            "italic": false,
+            "underline": false
+        },
+        "Extension": {
+            "Comment": "Sky",
+            "text-color": "#89dceb",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Float": {
+            "Comment": "Teal",
+            "text-color": "#94e2d5",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Function": {
+            "Comment": "Teal",
+            "text-color": "#94e2d5",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Import": {
+            "text-color": "#008000",
+            "background-color": null,
+            "bold": true,
+            "italic": false,
+            "underline": false
+        },
+        "Information": {
+            "text-color": "#60a0b0",
+            "background-color": null,
+            "bold": true,
+            "italic": true,
+            "underline": false
+        },
+        "Keyword": {
+            "Comment": "Blue",
+            "text-color": "#89b4fa",
+            "background-color": null,
+            "bold": true,
+            "italic": false,
+            "underline": false
+        },
+        "Operator": {
+            "Comment": "Text",
+            "text-color": "#cdd6f4",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Other": {
+            "Comment": "Sky",
+            "text-color": "#89dceb",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Preprocessor": {
+            "text-color": "#bc7a00",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "SpecialChar": {
+            "text-color": "#4070a0",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "SpecialString": {
+            "text-color": "#bb6688",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "String": {
+            "Comment": "Green",
+            "text-color": "#a6e3a1",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Variable": {
+            "Comment": "Maroon",
+            "text-color": "#eba0ac",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "VerbatimString": {
+            "Comment": "Green",
+            "text-color": "#a6e3a1",
+            "background-color": null,
+            "bold": false,
+            "italic": false,
+            "underline": false
+        },
+        "Warning": {
+            "Comment": "Red",
+            "text-color": "#f38ba8",
+            "background-color": null,
+            "bold": true,
+            "italic": true,
+            "underline": false
+        }
+    }
+}

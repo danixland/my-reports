@@ -1,0 +1,415 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+
+\documentclass[a4paper,12pt]{article}
+
+% Material color palette
+\usepackage{xcolor}
+% https://www.materialpalette.com/orange/deep-purple
+\definecolor{DarkPrimaryColor}{HTML}{F57C00}  % #F57C00
+\definecolor{AccentColor}{HTML}{7C4DFF}       % #7C4DFF
+\definecolor{LightPrimaryColor}{HTML}{FFE0B2} % #FFE0B2
+\definecolor{PrimaryText}{HTML}{212121}       % #212121
+\definecolor{PrimaryColor}{HTML}{FF9800}      % #FF9800
+\definecolor{SecondaryText}{HTML}{757575}     % #757575
+\definecolor{Text}{HTML}{212121}              % #212121
+\definecolor{Divider}{HTML}{BDBDBD}           % #BDBDBD
+
+\usepackage{fontawesome5}
+\usepackage[hmargin={2cm,2cm},vmargin={4cm,3cm},headsep=2cm]{geometry}
+\usepackage[page,toc]{appendix} % Properly display appendices in TOC
+
+\usepackage{tcolorbox}
+\newtcolorbox{info-box}{colback=cyan!5!white,arc=0pt,outer arc=0pt,colframe=cyan!60!black}
+\newtcolorbox{warning-box}{colback=orange!5!white,arc=0pt,outer arc=0pt,colframe=orange!80!black}
+\newtcolorbox{error-box}{colback=red!5!white,arc=0pt,outer arc=0pt,colframe=red!75!black}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+  \usepackage{ucs}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \setromanfont{Roboto}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
+\fi
+\usepackage{textcomp}
+
+\usepackage{lastpage}
+
+$if(zero-width-non-joiner)$
+%% Support for zero-width non-joiner characters.
+\makeatletter
+\def\zerowidthnonjoiner{
+  % Prevent ligatures and adjust kerning, but still support hyphenating.
+  \texorpdfstring{
+    \textormath{\nobreak\discretionary{-}{}{\kern.03em}
+      \ifvmode\else\nobreak\hskip\z@skip\fi}{}
+  }{}
+}
+\makeatother
+\DeclareUnicodeCharacter{200C}{\zerowidthnonjoiner}
+%% End of ZWNJ support
+$endif$
+
+% line numbers in code
+% \usepackage[left]{lineno}
+% \linenumbers
+
+% define inline code styling
+\definecolor{bgcolor}{HTML}{BAC2DE}
+\let\oldtexttt\texttt
+
+\renewcommand{\texttt}[1]{
+  \colorbox{bgcolor}{\oldtexttt{#1}}
+}
+
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+$if(indent)$
+$else$
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+
+
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+$if(tables)$
+\usepackage{longtable,booktabs,array}
+$if(multirow)$
+\usepackage{multirow}
+$endif$
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+$endif$
+
+
+$if(graphics)$
+\usepackage[export]{adjustbox}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}
+  \else\usebox{\pandoc@box}
+  \fi
+}
+\setkeys{Gin}{width=\textwidth}
+%\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+%\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explic$pagestyle$
+$endif$
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+$endif$
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+$endif$
+
+$if(block-headings)$
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+$endif$
+
+$if(pagestyle)$
+\pagestyle{$pagestyle$}
+$else$
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+$endif$
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+$if(lang)$
+\usepackage[bidi=default]{babel}
+$if(babel-lang)$
+\babelprovide[main,import]{$babel-lang$}
+$endif$
+$for(babel-otherlangs)$
+\babelprovide[import]{$babel-otherlangs$}
+$endfor$
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+$if(dir)$
+\TeXXeTstate=1
+\newcommand{\RL}[1]{\beginR #1\endR}
+\newcommand{\LR}[1]{\beginL #1\endL}
+\newenvironment{RTL}{\beginR}{\endR}
+\newenvironment{LTR}{\beginL}{\endL}
+$endif$
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(nocite-ids)$
+\nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
+$endif$
+$if(csquotes)$
+\usepackage{csquotes}
+$endif$
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allow verbatim text in footnotes
+$endif$
+
+$if(startdate)$$else$ % get last monday date
+\usepackage{datenumber,etoolbox}
+\newbool{mondate}\ifnumcomp{\arabic{datedayname}}{=}{1}{\setbool{mondate}{true}}{\setbool{mondate}{false}}
+
+\newcommand\lastmon{
+  \unlessboolexpr{bool {mondate} }{
+    \addtocounter{datenumber}{-1}
+    \setdatebynumber{\arabic{datenumber}}
+    \ifnumcomp{\arabic{datedayname}}{=}{1}{\setbool{mondate}{true}}{\setbool{mondate}{false}}
+  }
+  \datedate\setbool{mondate}{false}
+}
+$endif$
+
+% ---------------------------------------------------------------------------------------------------------
+% BEGIN OF VARIABLES
+% ---------------------------------------------------------------------------------------------------------
+\def\mytitle{$if(title)$$title$$else$Security Testing Report$endif$}
+\def\myauthor{$if(author)$$author$$else$Danilo 'danix' Macrì$endif$}
+\def\mydate{\today}
+\def\defaultmail{danilo.macri@danix.me}
+\def\myemail{\href{mailto:$if(email)$$email$}{$email$$else$\defaultmail}{\defaultmail$endif$}}
+\def\client{$if(client)$$client$$else$[***]$endif$}
+\def\activity{$if(activity)$$activity$$else$[***]$endif$}
+\def\activitytype{$if(activity_type)$$activity_type$$else$[***]$endif$}
+\def\startdate{$if(startdate)$$startdate$$else$\lastmon$endif$}
+\def\engagetime{$if(engagetime)$$engagetime$$else$5$endif$}
+\author{{\color{AccentColor} \textbf{\myauthor} - \textbf{\myemail}}}
+\title{\vspace{-2cm}\Huge {\color{DarkPrimaryColor}\textbf{\mytitle}}\\{\color{PrimaryText}\textbf{\client} - \textbf{\activity}\\\textbf{\activitytype}}}
+\date{{\color{PrimaryText}\textbf{\mydate}}}
+\date{{\color{PrimaryText}\textbf{Scan started on \startdate}} - \color{PrimaryColor}\textbf{duration (days): \engagetime}}
+% ---------------------------------------------------------------------------------------------------------
+% END OF VARIABLES
+% ---------------------------------------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------------------------------------
+% BEGIN OF LINK SETUP
+% ---------------------------------------------------------------------------------------------------------
+\hypersetup{
+  pdftitle={\mytitle},
+  pdfauthor={\myauthor},
+  pdfkeywords={\mytitle, \myauthor, \activity},
+  colorlinks=true,
+  linkcolor={AccentColor},
+  urlcolor={AccentColor},
+}
+% ---------------------------------------------------------------------------------------------------------
+% END OF LINK SETUP
+% ---------------------------------------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------------------------------------
+% BEGIN OF HEADER AND FOOTER SETUP
+% ---------------------------------------------------------------------------------------------------------
+\fancyhead{}
+\lfoot{CLASSIFICATION: { \color{AccentColor}$if(classification)$\textbf{$classification$}$else$\textbf{CONFIDENTIAL}$endif$}}
+\lhead{{\color{AccentColor} $if(callout)$$callout$$else$\faHouseUser\space \href{https://danix.xyz/}{danix.xyz} $endif$}}
+\rfoot{\thepage\ / \pageref{LastPage}}
+\cfoot{}
+\rhead{{\color{AccentColor} \faEnvelopeOpen\space {{\myemail}}}}
+\renewcommand{\footrulewidth}{0.4pt}\setlength{\headheight}{20pt}
+% ---------------------------------------------------------------------------------------------------------
+% END OF HEADER AND FOOTER SETUP
+% ---------------------------------------------------------------------------------------------------------
+
+
+\usepackage{fvextra}
+\definecolor{bg}{HTML}{8E8E8E}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  breaklines   = true,
+  fontsize     = \footnotesize,
+  frame        = single,
+  rulecolor    = bg,
+  commandchars = \\\{\},
+}
+
+
+\begin{document}
+% ---------------------------------------------------------------------------------------------------------
+% BEGIN OF TITLE PAGE
+% ---------------------------------------------------------------------------------------------------------
+{
+\maketitle\thispagestyle{empty}
+\hypersetup{pdfborder=0 0 0}\setcounter{page}{0}
+}
+% ---------------------------------------------------------------------------------------------------------
+% END OF TITLE PAGE
+% ---------------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------------
+% BEGIN OF TABLE OF CONTENTS
+%-------------------------------------------------------------------------------------------------------
+\setcounter{tocdepth}{3}{\hypersetup{hidelinks}\tableofcontents}
+\clearpage
+%-------------------------------------------------------------------------------------------------------
+% END OF TABLE OF CONTENTS
+%-------------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------------
+% BEGIN OF MAIN CONTENT
+%-------------------------------------------------------------------------------------------------------
+$body$
+% Signature image
+\begin{figure}[h!]
+  \includegraphics[width=0.6\textwidth]{/home/danix/Pictures/signature.png}
+\end{figure}
+%-------------------------------------------------------------------------------------------------------
+% END OF MAIN CONTENT
+%-------------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------------
+% BEGIN OF LEGAL
+%-------------------------------------------------------------------------------------------------------
+$if(legal)$
+\pagebreak
+\begin{appendices}
+\section{Document Legal Data}
+
+\subsection*{Proprietary \& Legal Notice}
+	This document is the property of {\myauthor}; the contents herein are the intellectual property
+  and copyright of {\myauthor}. Disclosure of this document and its contents herein does not
+  grant or construe any transfer or other rights in relation to {\myauthor} intellectual property.
+
+\subsection*{Classification}
+	This document and information included must be considered "CONFIDENTIAL" between {\myauthor} and
+  {\client} and cannot be shared to any Third Party, neither copied in any format, without previous
+  agreement with {\myauthor}.
+
+\subsection*{Disclaimer}
+  {\myauthor} expressly disclaims any liability, which may arise in any manner and to any party through
+  publication of this document. Any party acting for or failing to act because of this document
+  assumes full responsibility for any use made of the information contained herein. This publication 
+  does not constitute an endorsement of the product or products described.
+
+\subsection*{Copyright}
+	All trademarks or registered trademarks either mentioned or implied are respected. \newline
+	{\client} and {\myauthor}. All Rights Reserved.
+
+\end{appendices}
+\pagebreak
+$endif$ % legal
+%-------------------------------------------------------------------------------------------------------
+% END OF LEGAL
+%-------------------------------------------------------------------------------------------------------
+
+
+\clearpage\end{document}

@@ -1,0 +1,65 @@
+#!/bin/sh
+
+SCRIPTPATH="$(readlink -f "$0")"
+SCRIPTDIR="$(dirname "$SCRIPTPATH")/"
+TEMPLATE=${TEMPLATE:-~/Documents/reports/template/template.md}
+SCRIPTNAME="${SCRIPTPATH##*/}"
+TODAY=$(date +%d-%m-%4Y)
+
+usage()
+{
+    echo "Usage: ${SCRIPTNAME} [-h] [-t inputfile.md] [-o outfile.pdf] <inputfile.md>"
+    echo
+    echo "    Positional: <inputfile>, markdown report (input)"
+    echo
+    echo "    -h|--help      display this message and exit"
+    echo "    -t|--template  print out the template"
+    echo "    -o|--output    output file to be written (default: report.pdf)"
+    echo
+    echo "    EXAMPLES"
+    echo "    # Save the markdown template to a file"
+    echo "    ${SCRIPTNAME} -t template.md"
+    echo "    # After editing the template with your vulnerabilities"
+    echo "    # launch ${SCRIPTNAME} directly on it"
+    echo "    ${SCRIPTNAME} -o 2022-09-google.pdf template.md"
+    echo
+}
+
+if ! command -v pandoc pdflatex >/dev/null; then 
+    echo "You need to install pandoc and pdflatex"
+fi
+
+while [ "$#" -ne 0 ]; do case "$1" in 
+    -h|--help)
+        usage
+        exit
+        ;;
+    -t|--template)
+        shift
+        export NEWFILE="$1"
+        NEWTITLE="${NEWFILE%*.md}"
+        cat "${TEMPLATE}" > $NEWFILE
+        sed -i "s/title: \"W10D4 - Raccolta Informazioni\"/title: \"${NEWTITLE}\"/g" "$NEWFILE"
+        exit
+        ;;
+    -o|--output)
+        shift
+        export OUTFILE="$1"
+        ;;
+    *) 
+        INPUTFILE="$1"
+esac; shift; done
+
+if [ -z "$INPUTFILE" ]; then
+    echo "No input file provided"
+    exit 1
+fi
+
+pandoc --pdf-engine=xelatex \
+    --syntax-highlighting=~/.local/share/pandoc/templates/reports.theme \
+    --template reports \
+    --variable fontsize=16pt \
+    --variable linestretch=1.5 \
+    --variable geometry=a4paper \
+    -i "${INPUTFILE}" -o "${OUTFILE:-~/Documents/reports/report.pdf}"
+
